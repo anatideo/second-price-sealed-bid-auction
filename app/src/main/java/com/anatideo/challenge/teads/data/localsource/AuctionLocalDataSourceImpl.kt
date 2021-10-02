@@ -1,14 +1,29 @@
 package com.anatideo.challenge.teads.data.localsource
 
-import com.anatideo.challenge.teads.domain.model.Buyer
+import com.anatideo.challenge.teads.data.mapper.BidderMapper
+import com.anatideo.challenge.teads.data.mapper.DataBidMapper
+import com.anatideo.challenge.teads.data.model.DataBid
+import com.anatideo.challenge.teads.domain.model.Bidder
+import com.anatideo.challenge.teads.domain.model.Bid
+import java.math.BigDecimal
 
-object AuctionLocalDataSourceImpl : AuctionLocalDataSource {
+class AuctionLocalDataSourceImpl(
+    private val dataBidMapper: DataBidMapper = DataBidMapper(),
+    private val bidderMapper: BidderMapper = BidderMapper()
+): AuctionLocalDataSource {
 
-    private val buyers = mutableListOf<Buyer>()
+    private val dataBids = mutableListOf<DataBid>()
 
-    override fun getReservePrice(): Double = 1050.00
+    override fun getReservePrice(): BigDecimal = BigDecimal(1050.00)
 
-    override fun addBuyer(buyer: Buyer): Boolean = buyers.add(buyer)
+    override fun getBidders(): List<Bidder> = bidderMapper.map(dataBids)
 
-    override fun getBuyers(): List<Buyer> = buyers
+    override fun addBid(bid: Bid): Boolean {
+        dataBids
+            .find { it.bidderId == bid.bidderId }
+            ?.let { it.bids.add(bid.bid) }
+            ?: dataBidMapper.map(bid).also { dataBids.add(it) }
+
+        return true
+    }
 }

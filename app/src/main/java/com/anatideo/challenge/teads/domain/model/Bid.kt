@@ -2,8 +2,8 @@ package com.anatideo.challenge.teads.domain.model
 
 import java.math.BigDecimal
 
-class Bidder(
-    val id: Long,
+class Bid(
+    val bidderId: Long,
     val name: String?,
-    val bids: List<BigDecimal>
+    val bid: BigDecimal
 )

@@ -1,9 +1,11 @@
 package com.anatideo.challenge.teads.domain
 
-import com.anatideo.challenge.teads.domain.model.Buyer
+import com.anatideo.challenge.teads.domain.model.Bid
+import com.anatideo.challenge.teads.domain.model.Bidder
+import java.math.BigDecimal
 
 interface AuctionRepository {
-    fun getReservePrice(): Double
-    fun addBuyer(buyer: Buyer): Boolean
-    fun getBuyers(): List<Buyer>
+    fun getReservePrice(): BigDecimal
+    fun getBidders(): List<Bidder>
+    fun addBid(bid: Bid): Boolean
 }
