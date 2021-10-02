@@ -10,15 +10,9 @@ import java.math.BigDecimal
 class AuctionRepositoryImpl(
     private val auctionLocalDataSource: AuctionLocalDataSource = AuctionLocalDataSourceImpl()
 ) : AuctionRepository {
-    override fun getReservePrice(): BigDecimal {
-        return auctionLocalDataSource.getReservePrice()
-    }
+    override suspend fun getReservePrice(): BigDecimal = auctionLocalDataSource.getReservePrice()
 
-    override fun getBidders(): List<Bidder> {
-        return auctionLocalDataSource.getBidders()
-    }
+    override suspend fun getBidders(): List<Bidder> = auctionLocalDataSource.getBidders()
 
-    override fun addBid(bid: Bid): Boolean {
-        return auctionLocalDataSource.addBid(bid)
-    }
+    override suspend fun addBid(bid: Bid) = auctionLocalDataSource.addBid(bid)
 }

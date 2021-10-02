@@ -14,16 +14,14 @@ class AuctionLocalDataSourceImpl(
 
     private val dataBids = mutableListOf<DataBid>()
 
-    override fun getReservePrice(): BigDecimal = BigDecimal(1050.00)
+    override suspend fun getReservePrice(): BigDecimal = BigDecimal(1050.00)
 
-    override fun getBidders(): List<Bidder> = bidderMapper.map(dataBids)
+    override suspend fun getBidders(): List<Bidder> = bidderMapper.map(dataBids)
 
-    override fun addBid(bid: Bid): Boolean {
+    override suspend fun addBid(bid: Bid) {
         dataBids
             .find { it.bidderId == bid.bidderId }
             ?.let { it.bids.add(bid.bid) }
             ?: dataBidMapper.map(bid).also { dataBids.add(it) }
-
-        return true
     }
 }

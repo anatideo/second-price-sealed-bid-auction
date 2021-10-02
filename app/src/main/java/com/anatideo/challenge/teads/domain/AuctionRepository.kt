@@ -5,7 +5,7 @@ import com.anatideo.challenge.teads.domain.model.Bidder
 import java.math.BigDecimal
 
 interface AuctionRepository {
-    fun getReservePrice(): BigDecimal
-    fun getBidders(): List<Bidder>
-    fun addBid(bid: Bid): Boolean
+    suspend fun getReservePrice(): BigDecimal
+    suspend fun getBidders(): List<Bidder>
+    suspend fun addBid(bid: Bid)
 }

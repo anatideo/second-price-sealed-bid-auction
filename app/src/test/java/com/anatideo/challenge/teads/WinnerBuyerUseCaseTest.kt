@@ -3,8 +3,9 @@ package com.anatideo.challenge.teads
 import com.anatideo.challenge.teads.domain.AuctionRepository
 import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
 import com.anatideo.challenge.teads.domain.model.Bidder
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.Assert.*
 import java.math.BigDecimal
@@ -27,11 +28,13 @@ class WinnerBidderUseCaseTest {
             winnerBidder
         )
 
-        every { auctionRepository.getReservePrice() } returns reservePrice
-        every { auctionRepository.getBidders() } returns bidders
+        coEvery { auctionRepository.getReservePrice() } returns reservePrice
+        coEvery { auctionRepository.getBidders() } returns bidders
 
         // When
-        val result = winnerBidderUseCase.getAuctionResult()
+        val result = runBlocking {
+            winnerBidderUseCase.getAuctionResult()
+        }
 
         // Then
         assertEquals(winnerBidder, result?.bidder)
@@ -50,11 +53,13 @@ class WinnerBidderUseCaseTest {
             winnerBidder
         )
 
-        every { auctionRepository.getReservePrice() } returns reservePrice
-        every { auctionRepository.getBidders() } returns bidders
+        coEvery { auctionRepository.getReservePrice() } returns reservePrice
+        coEvery { auctionRepository.getBidders() } returns bidders
 
         // When
-        val result = winnerBidderUseCase.getAuctionResult()
+        val result = runBlocking {
+            winnerBidderUseCase.getAuctionResult()
+        }
 
         // Then
         assertEquals(winnerBidder, result?.bidder)
@@ -72,11 +77,13 @@ class WinnerBidderUseCaseTest {
             Bidder(id = 3L, name = "x", bids = listOf(BigDecimal(27.0), BigDecimal(27.0)))
         )
 
-        every { auctionRepository.getReservePrice() } returns reservePrice
-        every { auctionRepository.getBidders() } returns bidders
+        coEvery { auctionRepository.getReservePrice() } returns reservePrice
+        coEvery { auctionRepository.getBidders() } returns bidders
 
         // When
-        val result = winnerBidderUseCase.getAuctionResult()
+        val result = runBlocking {
+            winnerBidderUseCase.getAuctionResult()
+        }
 
         // Then
         assertEquals(null, result)
@@ -92,11 +99,13 @@ class WinnerBidderUseCaseTest {
             winnerBidder
         )
 
-        every { auctionRepository.getReservePrice() } returns reservePrice
-        every { auctionRepository.getBidders() } returns bidders
+        coEvery { auctionRepository.getReservePrice() } returns reservePrice
+        coEvery { auctionRepository.getBidders() } returns bidders
 
         // When
-        val result = winnerBidderUseCase.getAuctionResult()
+        val result = runBlocking {
+            winnerBidderUseCase.getAuctionResult()
+        }
 
         // Then
         assertEquals(winnerBidder, result?.bidder)
@@ -109,11 +118,13 @@ class WinnerBidderUseCaseTest {
         val reservePrice = BigDecimal(100.0)
         val bidders = emptyList<Bidder>()
 
-        every { auctionRepository.getReservePrice() } returns reservePrice
-        every { auctionRepository.getBidders() } returns bidders
+        coEvery { auctionRepository.getReservePrice() } returns reservePrice
+        coEvery { auctionRepository.getBidders() } returns bidders
 
         // When
-        val result = winnerBidderUseCase.getAuctionResult()
+        val result = runBlocking {
+            winnerBidderUseCase.getAuctionResult()
+        }
 
         // Then
         assertEquals(null, result)
