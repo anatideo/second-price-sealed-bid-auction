@@ -4,8 +4,9 @@ import com.anatideo.challenge.teads.domain.model.Bidder
 import com.anatideo.challenge.teads.domain.model.Bid
 import java.math.BigDecimal
 
-interface AuctionLocalDataSource {
+interface AuctionDataSource {
     suspend fun getReservePrice(): BigDecimal
     suspend fun getBidders(): List<Bidder>
     suspend fun addBid(bid: Bid)
+    suspend fun addReservePrice(value: BigDecimal)
 }

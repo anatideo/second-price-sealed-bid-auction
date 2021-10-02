@@ -8,4 +8,5 @@ interface AuctionRepository {
     suspend fun getReservePrice(): BigDecimal
     suspend fun getBidders(): List<Bidder>
     suspend fun addBid(bid: Bid)
+    suspend fun addReservePrice(reservePrice: BigDecimal)
 }

@@ -1,27 +1,40 @@
 package com.anatideo.challenge.teads.data.localsource
 
+import com.anatideo.challenge.teads.data.database.AuctionDatabaseProvider
 import com.anatideo.challenge.teads.data.mapper.BidderMapper
 import com.anatideo.challenge.teads.data.mapper.DataBidMapper
-import com.anatideo.challenge.teads.data.model.DataBid
-import com.anatideo.challenge.teads.domain.model.Bidder
 import com.anatideo.challenge.teads.domain.model.Bid
+import com.anatideo.challenge.teads.domain.model.Bidder
 import java.math.BigDecimal
 
 class AuctionLocalDataSourceImpl(
+    private val auctionDatabase: AuctionDatabaseProvider = AuctionDatabaseProvider,
     private val dataBidMapper: DataBidMapper = DataBidMapper(),
     private val bidderMapper: BidderMapper = BidderMapper()
-): AuctionLocalDataSource {
+) : AuctionDataSource {
+    override suspend fun getReservePrice(): BigDecimal {
+        return auctionDatabase.getReservePriceDao()!!.get()
+    }
 
-    private val dataBids = mutableListOf<DataBid>()
-
-    override suspend fun getReservePrice(): BigDecimal = BigDecimal(1050.00)
-
-    override suspend fun getBidders(): List<Bidder> = bidderMapper.map(dataBids)
+    override suspend fun getBidders(): List<Bidder> {
+        val dataBids = auctionDatabase.getDataBidDao()!!.getAll()
+        return bidderMapper.map(dataBids)
+    }
 
     override suspend fun addBid(bid: Bid) {
-        dataBids
-            .find { it.bidderId == bid.bidderId }
-            ?.let { it.bids.add(bid.bid) }
-            ?: dataBidMapper.map(bid).also { dataBids.add(it) }
+        with(auctionDatabase.getDataBidDao()!!) {
+            val dataBid = getById(bid.bidderId)
+
+            if (dataBid != null) {
+                dataBid.bids.add(bid.value)
+                update(dataBid)
+            } else {
+                insert(dataBidMapper.map(bid))
+            }
+        }
+    }
+
+    override suspend fun addReservePrice(value: BigDecimal) {
+        auctionDatabase.getReservePriceDao()!!.insert(value)
     }
 }

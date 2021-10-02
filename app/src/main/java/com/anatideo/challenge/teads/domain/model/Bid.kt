@@ -5,5 +5,5 @@ import java.math.BigDecimal
 class Bid(
     val bidderId: Long,
     val name: String?,
-    val bid: BigDecimal
+    val value: BigDecimal
 )

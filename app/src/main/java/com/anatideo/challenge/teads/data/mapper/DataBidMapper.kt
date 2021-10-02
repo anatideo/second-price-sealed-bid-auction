@@ -1,6 +1,6 @@
 package com.anatideo.challenge.teads.data.mapper
 
-import com.anatideo.challenge.teads.data.model.DataBid
+import com.anatideo.challenge.teads.data.database.model.DataBid
 import com.anatideo.challenge.teads.domain.model.Bid
 
 class DataBidMapper {
@@ -8,7 +8,7 @@ class DataBidMapper {
         return DataBid(
            bidderId = source.bidderId,
            name = source.name,
-           bids = mutableListOf(source.bid)
+           bids = mutableListOf(source.value)
         )
     }
 }
