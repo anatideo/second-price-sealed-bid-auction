@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -43,7 +44,7 @@ dependencies {
 
     // database
     implementation("androidx.room:room-runtime:2.3.0")
-    annotationProcessor "androidx.room:room-compiler:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
 
     // testing
     testImplementation "io.mockk:mockk:1.12.0"

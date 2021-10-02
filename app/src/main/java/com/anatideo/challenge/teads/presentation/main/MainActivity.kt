@@ -1,8 +1,8 @@
-package com.anatideo.challenge.teads
+package com.anatideo.challenge.teads.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.anatideo.challenge.teads.ui.main.MainFragment
+import com.anatideo.challenge.teads.R
 
 class MainActivity : AppCompatActivity() {
 

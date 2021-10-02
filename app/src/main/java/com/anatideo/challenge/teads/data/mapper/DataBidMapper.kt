@@ -8,7 +8,7 @@ class DataBidMapper {
         return DataBid(
            bidderId = source.bidderId,
            name = source.name,
-           bids = mutableListOf(source.value)
+           bids = listOf(source.value)
         )
     }
 }

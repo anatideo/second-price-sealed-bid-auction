@@ -1,4 +1,4 @@
-package com.anatideo.challenge.teads.ui.main
+package com.anatideo.challenge.teads.presentation.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -26,8 +26,6 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-        viewModel.showResult()
     }
 
 }

@@ -4,6 +4,7 @@ import com.anatideo.challenge.teads.domain.AuctionRepository
 import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
 import com.anatideo.challenge.teads.domain.model.Bidder
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -33,12 +34,17 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase.getAuctionResult()
+            winnerBidderUseCase()
         }
 
         // Then
         assertEquals(winnerBidder, result?.bidder)
         assertEquals(winningPrice, result?.winningPrice)
+
+        coVerify {
+            auctionRepository.getReservePrice()
+            auctionRepository.getBidders()
+        }
     }
 
     @Test
@@ -58,12 +64,17 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase.getAuctionResult()
+            winnerBidderUseCase()
         }
 
         // Then
         assertEquals(winnerBidder, result?.bidder)
         assertEquals(reservePrice, result?.winningPrice)
+
+        coVerify {
+            auctionRepository.getReservePrice()
+            auctionRepository.getBidders()
+        }
     }
 
     @Test
@@ -82,11 +93,16 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase.getAuctionResult()
+            winnerBidderUseCase()
         }
 
         // Then
         assertEquals(null, result)
+
+        coVerify {
+            auctionRepository.getReservePrice()
+            auctionRepository.getBidders()
+        }
     }
 
     @Test
@@ -104,12 +120,17 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase.getAuctionResult()
+            winnerBidderUseCase()
         }
 
         // Then
         assertEquals(winnerBidder, result?.bidder)
         assertEquals(reservePrice, result?.winningPrice)
+
+        coVerify {
+            auctionRepository.getReservePrice()
+            auctionRepository.getBidders()
+        }
     }
 
     @Test
@@ -123,10 +144,15 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase.getAuctionResult()
+            winnerBidderUseCase()
         }
 
         // Then
         assertEquals(null, result)
+
+        coVerify {
+            auctionRepository.getReservePrice()
+            auctionRepository.getBidders()
+        }
     }
 }

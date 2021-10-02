@@ -3,13 +3,13 @@ package com.anatideo.challenge.teads.data.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import java.math.BigDecimal
+import com.anatideo.challenge.teads.data.database.model.DataReservePrice
 
 @Dao
 interface ReservePriceDao {
     @Insert
-    fun insert(reservePrice: BigDecimal)
+    fun insert(dataReservePrice: DataReservePrice)
 
-    @Query("SELECT * FROM DataBid LIMIT 1")
-    fun get(): BigDecimal
+    @Query("SELECT * FROM DataReservePrice LIMIT 1")
+    fun get(): DataReservePrice
 }

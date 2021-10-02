@@ -8,7 +8,7 @@ import java.math.BigDecimal
 class GetAuctionResultUseCase(
     private val auctionRepository: AuctionRepository = AuctionRepositoryImpl()
 ) {
-    suspend fun getAuctionResult(): AuctionResult? {
+    suspend operator fun invoke(): AuctionResult? {
         val reservePrice = auctionRepository.getReservePrice()
         val bidders = auctionRepository.getBidders()
 

@@ -6,11 +6,9 @@ import androidx.room.PrimaryKey
 import java.math.BigDecimal
 
 @Entity
-data class DataBid(
-    @PrimaryKey
-    val bidderId: Long,
+class DataReservePrice(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     @ColumnInfo
-    val name: String?,
-    @ColumnInfo
-    val bids: List<BigDecimal>
+    val value: BigDecimal
 )

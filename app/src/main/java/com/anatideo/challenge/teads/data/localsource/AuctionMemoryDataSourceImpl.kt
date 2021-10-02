@@ -22,7 +22,7 @@ class AuctionMemoryDataSourceImpl(
     override suspend fun addBid(bid: Bid) {
         dataBids
             .find { it.bidderId == bid.bidderId }
-            ?.let { it.bids.add(bid.value) }
+            ?.let { it.bids.toMutableList().add(bid.value) }
             ?: dataBidMapper.map(bid).also { dataBids.add(it) }
     }
 
