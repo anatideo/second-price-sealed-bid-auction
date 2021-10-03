@@ -1,16 +1,16 @@
 package com.anatideo.challenge.teads.data
 
 import com.anatideo.challenge.teads.data.localsource.AuctionDataSource
-import com.anatideo.challenge.teads.data.localsource.AuctionLocalDataSourceImpl
 import com.anatideo.challenge.teads.data.mapper.BidderMapper
 import com.anatideo.challenge.teads.domain.AuctionRepository
 import com.anatideo.challenge.teads.domain.model.Bid
 import com.anatideo.challenge.teads.domain.model.Bidder
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class AuctionRepositoryImpl(
-    private val auctionLocalDataSource: AuctionDataSource = AuctionLocalDataSourceImpl(),
-    private val bidderMapper: BidderMapper = BidderMapper()
+class AuctionRepositoryImpl @Inject constructor(
+    private val auctionLocalDataSource: AuctionDataSource,
+    private val bidderMapper: BidderMapper
 ) : AuctionRepository {
     override suspend fun getReservePrice(): BigDecimal = auctionLocalDataSource.getReservePrice()
 

@@ -11,7 +11,6 @@ class Converters {
     @TypeConverter
     fun toBigDecimal(source: String): BigDecimal = BigDecimal(source)
 
-    // TODO there is opportunity to get it better
     @TypeConverter
     fun fromBigDecimalList(source: List<BigDecimal>): String {
         return source.joinToString(separator = SEPARATOR)

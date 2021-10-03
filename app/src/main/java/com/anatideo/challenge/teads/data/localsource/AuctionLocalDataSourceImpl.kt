@@ -6,19 +6,20 @@ import com.anatideo.challenge.teads.data.database.model.DataReservePrice
 import com.anatideo.challenge.teads.data.mapper.DataBidMapper
 import com.anatideo.challenge.teads.domain.model.Bid
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class AuctionLocalDataSourceImpl(
-    private val auctionDatabase: AuctionDatabaseProvider = AuctionDatabaseProvider,
-    private val dataBidMapper: DataBidMapper = DataBidMapper()
+class AuctionLocalDataSourceImpl @Inject constructor(
+    private val auctionDatabase: AuctionDatabaseProvider,
+    private val dataBidMapper: DataBidMapper
 ) : AuctionDataSource {
     override suspend fun getReservePrice(): BigDecimal {
-        return auctionDatabase.getReservePriceDao()!!.get().value
+        return auctionDatabase.getReservePriceDao().get().value
     }
 
-    override suspend fun getBidders(): List<DataBid> = auctionDatabase.getDataBidDao()!!.getAll()
+    override suspend fun getBidders(): List<DataBid> = auctionDatabase.getDataBidDao().getAll()
 
     override suspend fun addBid(bid: Bid) {
-        with(auctionDatabase.getDataBidDao()!!) {
+        with(auctionDatabase.getDataBidDao()) {
             val dataBid = getById(bid.bidderId)
 
             if (dataBid != null) {
@@ -31,6 +32,6 @@ class AuctionLocalDataSourceImpl(
     }
 
     override suspend fun addReservePrice(value: BigDecimal) {
-        auctionDatabase.getReservePriceDao()!!.insert(DataReservePrice(value = value))
+        auctionDatabase.getReservePriceDao().insert(DataReservePrice(value = value))
     }
 }

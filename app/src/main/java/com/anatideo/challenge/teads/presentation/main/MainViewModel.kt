@@ -1,5 +1,6 @@
 package com.anatideo.challenge.teads.presentation.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anatideo.challenge.teads.domain.AddBidUseCase
@@ -10,13 +11,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-class MainViewModel(
-    private val getAuctionResultUseCase: GetAuctionResultUseCase = GetAuctionResultUseCase(),
-    private val addReservePriceUseCase: AddReservePriceUseCase = AddReservePriceUseCase(),
-    private val addBidUseCase: AddBidUseCase = AddBidUseCase()
+class MainViewModel @ViewModelInject constructor(
+    private val getAuctionResultUseCase: GetAuctionResultUseCase,
+    private val addReservePriceUseCase: AddReservePriceUseCase,
+    private val addBidUseCase: AddBidUseCase
 ) : ViewModel() {
 
-    init {
+    fun init() {
         createFakeData()
     }
 

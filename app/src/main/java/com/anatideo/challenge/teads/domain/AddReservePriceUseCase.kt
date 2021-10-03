@@ -1,10 +1,10 @@
 package com.anatideo.challenge.teads.domain
 
-import com.anatideo.challenge.teads.data.AuctionRepositoryImpl
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class AddReservePriceUseCase(
-    private val auctionRepository: AuctionRepository = AuctionRepositoryImpl()
+class AddReservePriceUseCase @Inject constructor(
+    private val auctionRepository: AuctionRepository
 ) {
     suspend operator fun invoke(value: BigDecimal) = auctionRepository.addReservePrice(value)
 }
