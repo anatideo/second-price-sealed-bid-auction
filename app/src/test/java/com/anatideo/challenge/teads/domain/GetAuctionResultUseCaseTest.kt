@@ -1,23 +1,21 @@
-package com.anatideo.challenge.teads
+package com.anatideo.challenge.teads.domain
 
-import com.anatideo.challenge.teads.domain.AuctionRepository
-import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
 import com.anatideo.challenge.teads.domain.model.Bidder
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import org.junit.Assert.*
 import java.math.BigDecimal
 
 class WinnerBidderUseCaseTest {
 
     private val auctionRepository = mockk<AuctionRepository>()
-    private val winnerBidderUseCase = GetAuctionResultUseCase(auctionRepository)
+    private val getAuctionResultUseCase = GetAuctionResultUseCase(auctionRepository)
 
     @Test
-    fun `when getAuctionResult it should return the right winning price despite of bids order`() {
+    fun `when getting auction result it should return the right winning price despite of bids order`() {
         // Given
         val reservePrice = BigDecimal.valueOf(100.0)
         val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal.valueOf(377.0), BigDecimal.valueOf(1210.0)))
@@ -34,7 +32,7 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase()
+            getAuctionResultUseCase()
         }
 
         // Then
@@ -48,7 +46,7 @@ class WinnerBidderUseCaseTest {
     }
 
     @Test
-    fun `when getAuctionResult its winning price should be same as reserve price`() {
+    fun `when getting auction result its winning price should be same as reserve price`() {
         // Given
         val reservePrice = BigDecimal.valueOf(100.0)
         val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal.valueOf(377.0), BigDecimal.valueOf(1210.0)))
@@ -64,7 +62,7 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase()
+            getAuctionResultUseCase()
         }
 
         // Then
@@ -78,7 +76,7 @@ class WinnerBidderUseCaseTest {
     }
 
     @Test
-    fun `when getAuctionResult there is no winner`() {
+    fun `when getting auction result there is no winner`() {
         // Given
         val reservePrice = BigDecimal.valueOf(100.0)
 
@@ -93,7 +91,7 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase()
+            getAuctionResultUseCase()
         }
 
         // Then
@@ -106,7 +104,7 @@ class WinnerBidderUseCaseTest {
     }
 
     @Test
-    fun `when getAuctionResult there is a winner despite of the auction having a single bidder`() {
+    fun `when getting auction result there is a winner despite of the auction having a single bidder`() {
         // Given
         val reservePrice = BigDecimal.valueOf(100.0)
         val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal.valueOf(27.0), BigDecimal.valueOf(199.2)))
@@ -120,7 +118,7 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase()
+            getAuctionResultUseCase()
         }
 
         // Then
@@ -134,7 +132,7 @@ class WinnerBidderUseCaseTest {
     }
 
     @Test
-    fun `when getAuctionResult there is no winner because there is no bidders`() {
+    fun `when getting auction result there is no winner because there is no bidders`() {
         // Given
         val reservePrice = BigDecimal.valueOf(100.0)
         val bidders = emptyList<Bidder>()
@@ -144,7 +142,7 @@ class WinnerBidderUseCaseTest {
 
         // When
         val result = runBlocking {
-            winnerBidderUseCase()
+            getAuctionResultUseCase()
         }
 
         // Then

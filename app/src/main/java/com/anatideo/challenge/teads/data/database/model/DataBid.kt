@@ -12,5 +12,5 @@ data class DataBid(
     @ColumnInfo
     val name: String?,
     @ColumnInfo
-    val bids: List<BigDecimal>
+    val bids: MutableList<BigDecimal>
 )

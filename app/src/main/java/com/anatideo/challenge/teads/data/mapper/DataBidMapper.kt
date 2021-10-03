@@ -9,7 +9,7 @@ class DataBidMapper @Inject constructor() {
         return DataBid(
            bidderId = source.bidderId,
            name = source.name,
-           bids = listOf(source.value)
+           bids = mutableListOf(source.value)
         )
     }
 }

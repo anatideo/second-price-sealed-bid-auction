@@ -6,6 +6,7 @@ import com.anatideo.challenge.teads.data.localsource.AuctionDataSource
 import com.anatideo.challenge.teads.data.localsource.AuctionLocalDataSourceImpl
 import com.anatideo.challenge.teads.data.mapper.BidderMapper
 import com.anatideo.challenge.teads.data.mapper.DataBidMapper
+import com.anatideo.challenge.teads.data.mapper.DataReservePriceMapper
 import com.anatideo.challenge.teads.domain.AuctionRepository
 import dagger.Module
 import dagger.Provides
@@ -19,8 +20,9 @@ class AuctionModule {
     @Provides
     fun provideAuctionDataSource(
         auctionDatabaseProvider: AuctionDatabaseProvider,
-        dataBidMapper: DataBidMapper
-    ): AuctionDataSource = AuctionLocalDataSourceImpl(auctionDatabaseProvider, dataBidMapper)
+        dataBidMapper: DataBidMapper,
+        dataReservePriceMapper: DataReservePriceMapper
+    ): AuctionDataSource = AuctionLocalDataSourceImpl(auctionDatabaseProvider, dataBidMapper, dataReservePriceMapper)
 
     @Provides
     fun provideAuctionRepository(

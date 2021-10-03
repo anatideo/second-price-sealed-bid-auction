@@ -19,4 +19,7 @@ interface DataBidDao {
 
     @Query("SELECT * FROM DataBid WHERE bidderId=:id")
     fun getById(id: Long): DataBid?
+
+    @Query("DELETE FROM DataBid")
+    fun nukeTable()
 }

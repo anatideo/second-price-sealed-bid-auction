@@ -12,4 +12,7 @@ interface ReservePriceDao {
 
     @Query("SELECT * FROM DataReservePrice LIMIT 1")
     fun get(): DataReservePrice
+
+    @Query("DELETE FROM DataReservePrice")
+    fun nukeTable()
 }
