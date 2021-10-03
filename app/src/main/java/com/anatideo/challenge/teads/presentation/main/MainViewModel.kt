@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.anatideo.challenge.teads.domain.AddBidUseCase
 import com.anatideo.challenge.teads.domain.AddReservePriceUseCase
 import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
+import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
+import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.Bid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,11 +25,19 @@ class MainViewModel @ViewModelInject constructor(
 
     private fun createFakeData() {
         viewModelScope.launch(Dispatchers.Default) {
-            addReservePriceUseCase(BigDecimal.valueOf(1000.0))
-            getFakeBids().forEach { addBidUseCase(it) }
+            runCatching {
+                addReservePriceUseCase(BigDecimal.valueOf(1000.0))
+                getFakeBids().forEach { addBidUseCase(it) }
 
-            val result  = getAuctionResultUseCase()
-            println("null is not expected: $result")
+                val result  = getAuctionResultUseCase()
+                println("auction result: $result")
+            }.onFailure {
+                when (it) {
+                    is EmptyBidderListError -> println("There is no bidder!")
+                    is InsufficientHighestBidError -> println("Highest bid is minor than the reserve price")
+                    else -> println("unknown error has occurred: ${it.message}")
+                }
+            }
         }
     }
 

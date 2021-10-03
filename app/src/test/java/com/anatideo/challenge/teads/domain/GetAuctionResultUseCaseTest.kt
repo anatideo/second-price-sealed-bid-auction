@@ -1,10 +1,13 @@
 package com.anatideo.challenge.teads.domain
 
+import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
+import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.Bidder
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import java.math.BigDecimal
@@ -36,8 +39,8 @@ class WinnerBidderUseCaseTest {
         }
 
         // Then
-        assertEquals(winnerBidder, result?.bidder)
-        assertEquals(winningPrice, result?.winningPrice)
+        assertEquals(winnerBidder, result.bidder)
+        assertEquals(winningPrice, result.winningPrice)
 
         coVerify {
             auctionRepository.getReservePrice()
@@ -66,8 +69,8 @@ class WinnerBidderUseCaseTest {
         }
 
         // Then
-        assertEquals(winnerBidder, result?.bidder)
-        assertEquals(reservePrice, result?.winningPrice)
+        assertEquals(winnerBidder, result.bidder)
+        assertEquals(reservePrice, result.winningPrice)
 
         coVerify {
             auctionRepository.getReservePrice()
@@ -90,12 +93,14 @@ class WinnerBidderUseCaseTest {
         coEvery { auctionRepository.getBidders() } returns bidders
 
         // When
-        val result = runBlocking {
-            getAuctionResultUseCase()
+        runBlocking {
+            runCatching {
+                getAuctionResultUseCase()
+            }.onFailure {
+                // Then
+                assertTrue(it is InsufficientHighestBidError)
+            }
         }
-
-        // Then
-        assertEquals(null, result)
 
         coVerify {
             auctionRepository.getReservePrice()
@@ -122,8 +127,8 @@ class WinnerBidderUseCaseTest {
         }
 
         // Then
-        assertEquals(winnerBidder, result?.bidder)
-        assertEquals(reservePrice, result?.winningPrice)
+        assertEquals(winnerBidder, result.bidder)
+        assertEquals(reservePrice, result.winningPrice)
 
         coVerify {
             auctionRepository.getReservePrice()
@@ -141,12 +146,14 @@ class WinnerBidderUseCaseTest {
         coEvery { auctionRepository.getBidders() } returns bidders
 
         // When
-        val result = runBlocking {
-            getAuctionResultUseCase()
+        runBlocking {
+            runCatching {
+                getAuctionResultUseCase()
+            }.onFailure {
+                // Then
+                assertTrue(it is EmptyBidderListError)
+            }
         }
-
-        // Then
-        assertEquals(null, result)
 
         coVerify {
             auctionRepository.getReservePrice()

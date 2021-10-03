@@ -1,5 +1,7 @@
 package com.anatideo.challenge.teads.domain
 
+import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
+import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.AuctionResult
 import com.anatideo.challenge.teads.domain.model.Bidder
 import java.math.BigDecimal
@@ -8,12 +10,12 @@ import javax.inject.Inject
 class GetAuctionResultUseCase @Inject constructor(
     private val auctionRepository: AuctionRepository
 ) {
-    suspend operator fun invoke(): AuctionResult? {
+    suspend operator fun invoke(): AuctionResult {
         val reservePrice = auctionRepository.getReservePrice()
         val bidders = auctionRepository.getBidders()
 
         if (bidders.isEmpty()){
-            return null
+            throw EmptyBidderListError()
         }
 
         bidders.map {
@@ -31,7 +33,7 @@ class GetAuctionResultUseCase @Inject constructor(
             return if (winnerHighestBid >= reservePrice) {
                 AuctionResult(bidder = winner, winningPrice = winningPrice)
             } else {
-                null
+                throw InsufficientHighestBidError()
             }
         }
     }
