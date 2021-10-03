@@ -19,13 +19,13 @@ class WinnerBidderUseCaseTest {
     @Test
     fun `when getAuctionResult it should return the right winning price despite of bids order`() {
         // Given
-        val reservePrice = BigDecimal(100.0)
-        val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal(377.0), BigDecimal(1210.0)))
-        val winningPrice = BigDecimal(210.0)
+        val reservePrice = BigDecimal.valueOf(100.0)
+        val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal.valueOf(377.0), BigDecimal.valueOf(1210.0)))
+        val winningPrice = BigDecimal.valueOf(210.0)
 
         val bidders = listOf(
-            Bidder(id = 2L, name = "z", bids = listOf(BigDecimal(110.0), BigDecimal(10.0))),
-            Bidder(id = 3L, name = "y", bids = listOf(BigDecimal(77.0), winningPrice, BigDecimal(177.0))),
+            Bidder(id = 2L, name = "z", bids = listOf(BigDecimal.valueOf(110.0), BigDecimal.valueOf(10.0))),
+            Bidder(id = 3L, name = "y", bids = listOf(BigDecimal.valueOf(77.0), winningPrice, BigDecimal.valueOf(177.0))),
             winnerBidder
         )
 
@@ -50,12 +50,12 @@ class WinnerBidderUseCaseTest {
     @Test
     fun `when getAuctionResult its winning price should be same as reserve price`() {
         // Given
-        val reservePrice = BigDecimal(100.0)
-        val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal(377.0), BigDecimal(1210.0)))
+        val reservePrice = BigDecimal.valueOf(100.0)
+        val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal.valueOf(377.0), BigDecimal.valueOf(1210.0)))
 
         val bidders = listOf(
-            Bidder(id = 2L, name = "z", bids = listOf(BigDecimal(10.0), BigDecimal(90.0))),
-            Bidder(id = 3L, name = "y", bids = listOf(BigDecimal(77.0), BigDecimal(88.1))),
+            Bidder(id = 2L, name = "z", bids = listOf(BigDecimal.valueOf(10.0), BigDecimal.valueOf(90.0))),
+            Bidder(id = 3L, name = "y", bids = listOf(BigDecimal.valueOf(77.0), BigDecimal.valueOf(88.1))),
             winnerBidder
         )
 
@@ -80,12 +80,12 @@ class WinnerBidderUseCaseTest {
     @Test
     fun `when getAuctionResult there is no winner`() {
         // Given
-        val reservePrice = BigDecimal(100.0)
+        val reservePrice = BigDecimal.valueOf(100.0)
 
         val bidders = listOf(
-            Bidder(id = 1L, name = "z", bids = listOf(BigDecimal(10.0), BigDecimal(90.0))),
-            Bidder(id = 2L, name = "y", bids = listOf(BigDecimal(77.0), BigDecimal(88.1))),
-            Bidder(id = 3L, name = "x", bids = listOf(BigDecimal(27.0), BigDecimal(27.0)))
+            Bidder(id = 1L, name = "z", bids = listOf(BigDecimal.valueOf(10.0), BigDecimal.valueOf(90.0))),
+            Bidder(id = 2L, name = "y", bids = listOf(BigDecimal.valueOf(77.0), BigDecimal.valueOf(88.1))),
+            Bidder(id = 3L, name = "x", bids = listOf(BigDecimal.valueOf(27.0), BigDecimal.valueOf(27.0)))
         )
 
         coEvery { auctionRepository.getReservePrice() } returns reservePrice
@@ -108,8 +108,8 @@ class WinnerBidderUseCaseTest {
     @Test
     fun `when getAuctionResult there is a winner despite of the auction having a single bidder`() {
         // Given
-        val reservePrice = BigDecimal(100.0)
-        val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal(27.0), BigDecimal(199.2)))
+        val reservePrice = BigDecimal.valueOf(100.0)
+        val winnerBidder = Bidder(id = 1L, name = "x", bids = listOf(BigDecimal.valueOf(27.0), BigDecimal.valueOf(199.2)))
 
         val bidders = listOf(
             winnerBidder
@@ -136,7 +136,7 @@ class WinnerBidderUseCaseTest {
     @Test
     fun `when getAuctionResult there is no winner because there is no bidders`() {
         // Given
-        val reservePrice = BigDecimal(100.0)
+        val reservePrice = BigDecimal.valueOf(100.0)
         val bidders = emptyList<Bidder>()
 
         coEvery { auctionRepository.getReservePrice() } returns reservePrice
