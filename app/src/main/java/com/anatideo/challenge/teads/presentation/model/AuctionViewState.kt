@@ -5,8 +5,10 @@ import com.anatideo.challenge.teads.domain.model.AuctionResult
 sealed class AuctionViewState {
     data class HandleLoading(val show: Boolean): AuctionViewState()
     data class ShowWinner(val auctionResult: AuctionResult): AuctionViewState()
-    data class BidAdded(val name: String?) : AuctionViewState()
+    object BidAdded : AuctionViewState()
     object MissingReservePrice : AuctionViewState()
+    object MissingId : AuctionViewState()
+    object MissingBidValue : AuctionViewState()
     object AuctionStarted : AuctionViewState()
     object ShowThereIsNoWinner : AuctionViewState()
     object ShowInsufficientHighestBid : AuctionViewState()

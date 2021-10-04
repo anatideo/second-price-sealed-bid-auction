@@ -1,5 +1,6 @@
 package com.anatideo.challenge.teads.presentation.main
 
+import androidx.annotation.VisibleForTesting
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,7 @@ import com.anatideo.challenge.teads.domain.AddReservePriceUseCase
 import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
 import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
 import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
+import com.anatideo.challenge.teads.domain.model.Bid
 import com.anatideo.challenge.teads.presentation.extensions.isNumeric
 import com.anatideo.challenge.teads.presentation.model.AuctionViewState
 import kotlinx.coroutines.Dispatchers
@@ -52,5 +54,40 @@ class MainViewModel @ViewModelInject constructor(
         } else {
             _viewState.value = AuctionViewState.MissingReservePrice
         }
+    }
+
+    fun onAddingBid(id: String, name: String, value: String) {
+        var fail = false
+
+        if (id.isBlank() || id.isNumeric().not()) {
+            _viewState.value = AuctionViewState.MissingId
+            fail = true
+        }
+
+        if (value.isBlank() || value.isNumeric().not()) {
+            _viewState.value = AuctionViewState.MissingBidValue
+            fail = true
+        }
+
+        if (fail.not()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                runCatching {
+                    val bid = Triple(id, name, value).toBid()
+                    addBidUseCase(bid)
+                    _viewState.postValue(AuctionViewState.BidAdded)
+                }.onFailure {
+                    _viewState.postValue(AuctionViewState.ShowUnknownError)
+                }
+            }
+        }
+    }
+
+    @VisibleForTesting
+    fun Triple<String, String, String>.toBid(): Bid {
+        return Bid(
+            bidderId = this.first.toLong(),
+            name = this.second,
+            value = this.third.toBigDecimal()
+        )
     }
 }

@@ -4,5 +4,11 @@
     <string name="start_auction">Start Auction</string>
     <string name="reserve_price">Reserve Price</string>
     <string name="insert_your_bid">Insert your bid</string>
-    <string name="bid_value">Value</string>
+    <string name="bidder_id">Id</string>
+    <string name="bidder_name">Name</string>
+    <string name="bidder_value">Value</string>
+    <string name="bidder_data_placeholder">\?</string>
+    <string name="monetary_symbol">$</string>
+    <string name="no_name">Anonymous</string>
+    <string name="insert">Insert</string>
 </resources>
