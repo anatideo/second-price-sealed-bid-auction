@@ -7,8 +7,15 @@
     <string name="bidder_id">Id</string>
     <string name="bidder_name">Name</string>
     <string name="bidder_value">Value</string>
-    <string name="bidder_data_placeholder">\?</string>
+    <string name="empty_info">\?</string>
     <string name="monetary_symbol">$</string>
     <string name="no_name">Anonymous</string>
     <string name="insert">Insert</string>
+
+    <string name="product_1">Valuable no teeth smile</string>
+    <string name="product_2">Short-armed friend</string>
+    <string name="product_3">Best pizza ever made</string>
+    <string name="product_4">Ingenious computer</string>
+    <string name="product_5">Leo, 1503—1506</string>
+    <string name="product_6">Steve\'s Apple Watch</string>
 </resources>

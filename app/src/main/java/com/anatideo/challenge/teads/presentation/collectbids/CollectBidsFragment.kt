@@ -1,17 +1,14 @@
 package com.anatideo.challenge.teads.presentation.collectbids
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.anatideo.challenge.teads.R
 import com.anatideo.challenge.teads.databinding.CollectBidsFragmentBinding
+import com.anatideo.challenge.teads.presentation.extensions.doAfterTextChanged
 import com.anatideo.challenge.teads.presentation.extensions.observeOn
 import com.anatideo.challenge.teads.presentation.extensions.shake
 import com.anatideo.challenge.teads.presentation.main.MainViewModel
@@ -41,11 +38,24 @@ class CollectBidsFragment : Fragment() {
 
     private fun setViews() {
         with(binding) {
-            imgPlaceholder.setBackgroundResource(bidderImages.random())
+            image.setBackgroundResource(bidderImages.random())
 
-            idInsert.fillBidderAfterTextChanged(id)
-            nameInsert.fillBidderAfterTextChanged(textView = name, placeholder = getString(R.string.no_name))
-            valueInsert.fillBidderAfterTextChanged(textView = value, prefix = getString(R.string.monetary_symbol))
+            idInsert.doAfterTextChanged {
+                id.text = it
+                    .takeIf { it.isBlank().not() }
+                    ?: getString(R.string.empty_info)
+            }
+
+            nameInsert.doAfterTextChanged {
+                name.text = it.takeIf { it.isBlank().not() } ?: getString(R.string.no_name)
+            }
+
+            valueInsert.doAfterTextChanged {
+                value.text = it
+                    .takeIf { it.isBlank().not() }
+                    ?.let { "${getString(R.string.monetary_symbol)}$it" }
+                    ?: getString(R.string.empty_info)
+            }
 
             addBid.setOnClickListener {
                 mainViewModel.onAddingBid(
@@ -65,29 +75,6 @@ class CollectBidsFragment : Fragment() {
                 AuctionViewState.BidAdded -> println("ready to next step")
             }
         }
-    }
-
-    private fun EditText.fillBidderAfterTextChanged(
-        textView: TextView,
-        prefix: String? = null,
-        placeholder: String? = null
-    ) {
-        this.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(editable: Editable?) {
-                val text = editable.toString()
-                val value = if (text.isBlank()) {
-                    placeholder ?: getString(R.string.bidder_data_placeholder)
-                } else {
-                    prefix?.let { "$it$text" } ?: text
-                }
-
-                textView.text = value
-            }
-        })
     }
 
     companion object {

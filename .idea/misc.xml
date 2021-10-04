@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/collect_bids_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.19429347826086957" />
+        <entry key="app/src/main/res/layout/start_auction_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/x.xml" value="0.25" />
       </map>
     </option>
   </component>

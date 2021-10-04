@@ -13,30 +13,79 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/advancedpixel7"
         android:text="@string/auction_type"
-        android:textAlignment="center"
-        android:textSize="48sp"
+        android:textSize="@dimen/title_text_size"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/reservePrice"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/imageContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
+    <View
+        android:id="@+id/imageContainer"
+        android:layout_width="190dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/regular_margin_value"
+        android:background="@drawable/square"
+        app:layout_constraintBottom_toTopOf="@id/reservePriceInsert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/small_margin_value"
+        app:layout_constraintBottom_toBottomOf="@id/imageContainer"
+        app:layout_constraintEnd_toEndOf="@id/imageContainer"
+        app:layout_constraintStart_toStartOf="@id/imageContainer"
+        app:layout_constraintTop_toTopOf="@id/imageContainer"
+        app:layout_constraintVertical_bias="0.0"
+        tools:src="@drawable/punk9463"/>
+
+    <TextView
+        android:id="@+id/product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin_value"
+        android:fontFamily="@font/advancedpixel7"
+        android:text="@string/empty_info"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintEnd_toEndOf="@id/imageContainer"
+        app:layout_constraintStart_toStartOf="@id/imageContainer"
+        app:layout_constraintTop_toBottomOf="@id/image"/>
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin_value"
+        android:layout_marginBottom="@dimen/small_margin_value"
+        android:fontFamily="@font/advancedpixel7"
+        android:text="@string/empty_info"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/imageContainer"
+        app:layout_constraintEnd_toEndOf="@id/imageContainer"
+        app:layout_constraintStart_toStartOf="@id/imageContainer"
+        app:layout_constraintTop_toBottomOf="@id/product"/>
+
     <EditText
-        android:id="@+id/reservePrice"
+        android:id="@+id/reservePriceInsert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/regular_margin_value"
         android:fontFamily="@font/advancedpixel7"
-        android:hint="@string/reserve_price"
+        android:hint="@string/bidder_value"
         android:inputType="numberDecimal"
         android:minWidth="@dimen/min_insert_width"
         android:textAlignment="center"
-        android:textSize="32sp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintBottom_toTopOf="@id/startAuction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/imageContainer" />
 
     <Button
         android:id="@+id/startAuction"
@@ -49,6 +98,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservePrice" />
+        app:layout_constraintTop_toBottomOf="@id/reservePriceInsert" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

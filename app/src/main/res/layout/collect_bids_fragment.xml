@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <ImageView
-        android:id="@+id/imgPlaceholder"
+        android:id="@+id/image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="@dimen/small_margin_value"
@@ -50,11 +50,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin_value"
         android:fontFamily="@font/advancedpixel7"
-        android:text="@string/bidder_data_placeholder"
+        android:text="@string/empty_info"
         android:textSize="@dimen/small_text_size"
         app:layout_constraintEnd_toEndOf="@id/imageContainer"
         app:layout_constraintStart_toStartOf="@id/imageContainer"
-        app:layout_constraintTop_toBottomOf="@id/imgPlaceholder"/>
+        app:layout_constraintTop_toBottomOf="@id/image"/>
 
     <TextView
         android:id="@+id/name"
@@ -75,7 +75,7 @@
         android:layout_marginTop="@dimen/small_margin_value"
         android:layout_marginBottom="@dimen/small_margin_value"
         android:fontFamily="@font/advancedpixel7"
-        android:text="@string/bidder_data_placeholder"
+        android:text="@string/empty_info"
         android:textSize="@dimen/small_text_size"
         app:layout_constraintBottom_toBottomOf="@id/imageContainer"
         app:layout_constraintEnd_toEndOf="@id/imageContainer"
