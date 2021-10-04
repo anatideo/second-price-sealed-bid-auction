@@ -1,6 +1,9 @@
 package com.anatideo.challenge.teads.presentation.main
 
+import androidx.annotation.VisibleForTesting
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anatideo.challenge.teads.domain.AddBidUseCase
@@ -8,7 +11,8 @@ import com.anatideo.challenge.teads.domain.AddReservePriceUseCase
 import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
 import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
 import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
-import com.anatideo.challenge.teads.domain.model.Bid
+import com.anatideo.challenge.teads.presentation.extensions.isNumeric
+import com.anatideo.challenge.teads.presentation.model.AuctionViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
@@ -19,18 +23,14 @@ class MainViewModel @ViewModelInject constructor(
     private val addBidUseCase: AddBidUseCase
 ) : ViewModel() {
 
-    fun init() {
-        createFakeData()
-    }
+    private val _viewState = MutableLiveData<AuctionViewState>()
+    val viewState: LiveData<AuctionViewState> get() = _viewState
 
     private fun createFakeData() {
         viewModelScope.launch(Dispatchers.Default) {
             runCatching {
-                addReservePriceUseCase(BigDecimal.valueOf(1000.0))
-                getFakeBids().forEach { addBidUseCase(it) }
-
                 val result  = getAuctionResultUseCase()
-                println("auction result: $result")
+                println(result)
             }.onFailure {
                 when (it) {
                     is EmptyBidderListError -> println("There is no bidder!")
@@ -41,43 +41,21 @@ class MainViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun getFakeBids(): List<Bid> {
-        return listOf(
-            Bid(
-                1L,
-                name = null,
-                value = BigDecimal.valueOf(100.0)
-            ),
-            Bid(
-                1L,
-                name = null,
-                value = BigDecimal.valueOf(300.0)
-            ),
-            Bid(
-                1L,
-                name = null,
-                value = BigDecimal.valueOf(300.0)
-            ),
-            Bid(
-                2L,
-                name = "Gotham",
-                value = BigDecimal.valueOf(3000.0)
-            ),
-            Bid(
-                1L,
-                name = null,
-                value = BigDecimal.valueOf(200.0)
-            ),
-            Bid(
-                3L,
-                name = "Cardy G.",
-                value = BigDecimal.valueOf(1200.0)
-            ),
-            Bid(
-                4L,
-                name = "Saulo B.",
-                value = BigDecimal.valueOf(500.50)
-            )
-        )
+    fun onStartingAuction(reservePrice: String) {
+        if (reservePrice.isBlank().not() && reservePrice.isNumeric()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                runCatching {
+                    addReservePriceUseCase(reservePrice.toBigDecimal())
+                    _viewState.postValue(AuctionViewState.AuctionStarted)
+                }.onFailure {
+                    _viewState.postValue(AuctionViewState.ShowUnknownError)
+                }
+            }
+        } else {
+            _viewState.value = AuctionViewState.MissingReservePrice
+        }
     }
+
+    @VisibleForTesting
+    fun String.toBigDecimal() = BigDecimal(this)
 }
