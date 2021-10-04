@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.anatideo.challenge.teads.R
 import com.anatideo.challenge.teads.databinding.CollectBidsFragmentBinding
+import com.anatideo.challenge.teads.presentation.base.ErrorFeedback
+import com.anatideo.challenge.teads.presentation.base.ImageProvider
 import com.anatideo.challenge.teads.presentation.base.extensions.doAfterTextChanged
 import com.anatideo.challenge.teads.presentation.base.extensions.observeOn
 import com.anatideo.challenge.teads.presentation.base.extensions.shake
@@ -74,7 +76,7 @@ class CollectBidsFragment : Fragment() {
     }
 
     private fun setBidderImage() {
-        binding.image.setBackgroundResource(bidderImages.random())
+        binding.image.setBackgroundResource(ImageProvider.bidderImages.random())
     }
 
     private fun setObservers() {
@@ -88,22 +90,17 @@ class CollectBidsFragment : Fragment() {
                         .replace(R.id.container, OngoingAuctionFragment.newInstance())
                         .commitNow()
                 }
+                AuctionViewState.ShowUnknownError -> {
+                    ErrorFeedback.show(
+                        getString(R.string.unknown_error),
+                        this@CollectBidsFragment.context
+                    )
+                }
             }
         }
     }
 
     companion object {
         fun newInstance() = CollectBidsFragment()
-
-        private val bidderImages = listOf(
-            R.drawable.punk1626,
-            R.drawable.punk4643,
-            R.drawable.punk5175,
-            R.drawable.punk7569,
-            R.drawable.punk9194,
-            R.drawable.punk9463,
-            R.drawable.punk9740,
-            R.drawable.punk9859
-        )
     }
 }

@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.anatideo.challenge.teads.domain.AddBidUseCase
 import com.anatideo.challenge.teads.domain.AddReservePriceUseCase
 import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
-import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
 import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.Bid
 import com.anatideo.challenge.teads.presentation.base.extensions.isNumeric
@@ -25,21 +24,6 @@ class MainViewModel @ViewModelInject constructor(
 
     private val _viewState = MutableLiveData<AuctionViewState>()
     val viewState: LiveData<AuctionViewState> get() = _viewState
-
-    private fun createFakeData() {
-        viewModelScope.launch(Dispatchers.Default) {
-            runCatching {
-                val result  = getAuctionResultUseCase()
-                println(result)
-            }.onFailure {
-                when (it) {
-                    is EmptyBidderListError -> println("There is no bidder!")
-                    is InsufficientHighestBidError -> println("Highest bid is minor than the reserve price")
-                    else -> println("unknown error has occurred: ${it.message}")
-                }
-            }
-        }
-    }
 
     fun onStartingAuction(reservePrice: String) {
         if (reservePrice.isBlank().not() && reservePrice.isNumeric()) {
@@ -87,7 +71,23 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     fun onTerminate() {
+        _viewState.value = AuctionViewState.Terminate
+    }
 
+    fun onAuctionResult() {
+        viewModelScope.launch(Dispatchers.Default) {
+            runCatching {
+                val result  = getAuctionResultUseCase()
+                _viewState.postValue(AuctionViewState.ShowWinner(result))
+            }.onFailure {
+                val state = when (it) {
+                    is InsufficientHighestBidError -> AuctionViewState.ShowInsufficientHighestBid
+                    else -> AuctionViewState.ShowUnknownError
+                }
+
+                _viewState.postValue(state)
+            }
+        }
     }
 
     @VisibleForTesting

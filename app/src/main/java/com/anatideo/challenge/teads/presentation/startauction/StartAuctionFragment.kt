@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.anatideo.challenge.teads.R
 import com.anatideo.challenge.teads.databinding.StartAuctionFragmentBinding
+import com.anatideo.challenge.teads.presentation.base.ErrorFeedback
+import com.anatideo.challenge.teads.presentation.base.ImageProvider
 import com.anatideo.challenge.teads.presentation.collectbids.CollectBidsFragment
 import com.anatideo.challenge.teads.presentation.base.extensions.doAfterTextChanged
 import com.anatideo.challenge.teads.presentation.base.extensions.observeOn
@@ -60,7 +62,7 @@ class StartAuctionFragment : Fragment() {
     }
 
     private fun setNewProduct() {
-        products.random().also {
+        ImageProvider.products.random().also {
             binding.image.setBackgroundResource(it.first)
             binding.product.text = getString(it.second)
         }
@@ -76,20 +78,17 @@ class StartAuctionFragment : Fragment() {
                         .replace(R.id.container, CollectBidsFragment.newInstance())
                         .commitNow()
                 }
+                AuctionViewState.ShowUnknownError -> {
+                    ErrorFeedback.show(
+                        getString(R.string.unknown_error),
+                        this@StartAuctionFragment.context
+                    )
+                }
             }
         }
     }
 
     companion object {
         fun newInstance() = StartAuctionFragment()
-
-        private val products = listOf(
-            R.drawable.product1010 to R.string.product_1,
-            R.drawable.product1020 to R.string.product_2,
-            R.drawable.product1030 to R.string.product_3,
-            R.drawable.product1040 to R.string.product_4,
-            R.drawable.product1050 to R.string.product_5,
-            R.drawable.product1060 to R.string.product_6,
-        )
     }
 }

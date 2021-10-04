@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="@id/imageContainer"
         app:layout_constraintTop_toTopOf="@id/imageContainer"
         app:layout_constraintVertical_bias="0.0"
-        tools:src="@drawable/punk9463"/>
+        tools:src="@drawable/product1040"/>
 
     <TextView
         android:id="@+id/product"
