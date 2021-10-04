@@ -12,7 +12,7 @@ import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
 import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
 import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.Bid
-import com.anatideo.challenge.teads.presentation.extensions.isNumeric
+import com.anatideo.challenge.teads.presentation.base.extensions.isNumeric
 import com.anatideo.challenge.teads.presentation.model.AuctionViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

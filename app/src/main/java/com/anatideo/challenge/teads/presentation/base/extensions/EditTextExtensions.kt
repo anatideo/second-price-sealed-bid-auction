@@ -1,4 +1,4 @@
-package com.anatideo.challenge.teads.presentation.extensions
+package com.anatideo.challenge.teads.presentation.base.extensions
 
 import android.text.Editable
 import android.text.TextWatcher

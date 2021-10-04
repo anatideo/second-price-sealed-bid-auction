@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import com.anatideo.challenge.teads.R
 import com.anatideo.challenge.teads.databinding.StartAuctionFragmentBinding
 import com.anatideo.challenge.teads.presentation.collectbids.CollectBidsFragment
-import com.anatideo.challenge.teads.presentation.extensions.doAfterTextChanged
-import com.anatideo.challenge.teads.presentation.extensions.observeOn
-import com.anatideo.challenge.teads.presentation.extensions.shake
+import com.anatideo.challenge.teads.presentation.base.extensions.doAfterTextChanged
+import com.anatideo.challenge.teads.presentation.base.extensions.observeOn
+import com.anatideo.challenge.teads.presentation.base.extensions.shake
 import com.anatideo.challenge.teads.presentation.main.MainViewModel
 import com.anatideo.challenge.teads.presentation.model.AuctionViewState
 import dagger.hilt.android.AndroidEntryPoint

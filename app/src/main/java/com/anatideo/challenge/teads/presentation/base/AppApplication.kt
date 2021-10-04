@@ -1,4 +1,4 @@
-package com.anatideo.challenge.teads.presentation.application
+package com.anatideo.challenge.teads.presentation.base
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

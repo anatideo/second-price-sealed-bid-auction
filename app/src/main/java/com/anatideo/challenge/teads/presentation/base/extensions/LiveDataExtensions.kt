@@ -1,4 +1,4 @@
-package com.anatideo.challenge.teads.presentation.extensions
+package com.anatideo.challenge.teads.presentation.base.extensions
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

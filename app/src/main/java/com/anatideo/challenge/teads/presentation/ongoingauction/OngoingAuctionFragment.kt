@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.anatideo.challenge.teads.R
 import com.anatideo.challenge.teads.databinding.OngoingAuctionFragmentBinding
 import com.anatideo.challenge.teads.presentation.collectbids.CollectBidsFragment
-import com.anatideo.challenge.teads.presentation.extensions.observeOn
+import com.anatideo.challenge.teads.presentation.base.extensions.observeOn
 import com.anatideo.challenge.teads.presentation.main.MainViewModel
 import com.anatideo.challenge.teads.presentation.model.AuctionViewState
 import dagger.hilt.android.AndroidEntryPoint
