@@ -1,4 +1,4 @@
-package com.anatideo.challenge.teads.presentation.main
+package com.anatideo.challenge.teads.presentation.collectbids
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.anatideo.challenge.teads.databinding.StartAuctionFragmentBinding
+import com.anatideo.challenge.teads.databinding.CollectBidsFragmentBinding
 import com.anatideo.challenge.teads.presentation.extensions.observeOn
-import com.anatideo.challenge.teads.presentation.extensions.shake
-import com.anatideo.challenge.teads.presentation.model.AuctionViewState
+import com.anatideo.challenge.teads.presentation.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StartAuctionFragment : Fragment() {
+class CollectBidsFragment : Fragment() {
 
-    private lateinit var binding: StartAuctionFragmentBinding
+    private lateinit var binding: CollectBidsFragmentBinding
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -23,7 +22,7 @@ class StartAuctionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = StartAuctionFragmentBinding.inflate(inflater, container, false)
+        binding = CollectBidsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -35,22 +34,19 @@ class StartAuctionFragment : Fragment() {
 
     private fun setViews() {
         with(binding) {
-            startAuction.setOnClickListener {
-                mainViewModel.onStartingAuction(reservePrice.text.toString())
-            }
+
         }
     }
 
     private fun setObservers() {
         mainViewModel.viewState.observeOn(this) {
             when (it) {
-                AuctionViewState.MissingReservePrice -> binding.reservePrice.shake()
-                AuctionViewState.AuctionStarted -> println("start collecting bids")
+
             }
         }
     }
 
     companion object {
-        fun newInstance() = StartAuctionFragment()
+        fun newInstance() = CollectBidsFragment()
     }
 }

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">TEADS</string>
+    <string name="auction_type">Second-price\nSealed-bid Auction</string>
     <string name="start_auction">Start Auction</string>
     <string name="reserve_price">Reserve Price</string>
+    <string name="insert_your_bid">Insert your bid</string>
+    <string name="bid_value">Value</string>
 </resources>

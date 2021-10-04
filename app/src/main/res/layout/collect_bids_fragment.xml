@@ -13,39 +13,45 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:textStyle="bold"
-        android:textAlignment="center"
         android:textSize="48sp"
         android:fontFamily="@font/advancedpixel7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/auction_type" />
+        android:text="@string/insert_your_bid" />
 
-    <EditText
-        android:id="@+id/reservePrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:hint="@string/reserve_price"
-        android:inputType="numberDecimal"
-        android:textAlignment="center"
-        android:textSize="32sp"
-        android:fontFamily="@font/advancedpixel7"
+    <View
+        android:id="@+id/imageContainer"
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/square"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <Button
-        android:id="@+id/startAuction"
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintStart_toStartOf="@id/imageContainer"
+        app:layout_constraintEnd_toEndOf="@id/imageContainer"
+        app:layout_constraintTop_toTopOf="@id/imageContainer"
+        app:layout_constraintBottom_toBottomOf="@id/imageContainer"
+        tools:src="@drawable/punk9463"/>
+
+    <EditText
+        android:id="@+id/bid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:hint="@string/bid_value"
+        android:layout_marginTop="25dp"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
         android:textSize="32sp"
-        android:text="@string/start_auction"
         android:fontFamily="@font/advancedpixel7"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@id/reservePrice" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

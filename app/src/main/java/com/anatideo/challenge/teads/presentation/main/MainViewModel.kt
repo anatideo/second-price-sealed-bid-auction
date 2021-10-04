@@ -1,6 +1,5 @@
 package com.anatideo.challenge.teads.presentation.main
 
-import androidx.annotation.VisibleForTesting
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +14,6 @@ import com.anatideo.challenge.teads.presentation.extensions.isNumeric
 import com.anatideo.challenge.teads.presentation.model.AuctionViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.math.BigDecimal
 
 class MainViewModel @ViewModelInject constructor(
     private val getAuctionResultUseCase: GetAuctionResultUseCase,
@@ -55,7 +53,4 @@ class MainViewModel @ViewModelInject constructor(
             _viewState.value = AuctionViewState.MissingReservePrice
         }
     }
-
-    @VisibleForTesting
-    fun String.toBigDecimal() = BigDecimal(this)
 }

@@ -3,6 +3,7 @@ package com.anatideo.challenge.teads.presentation.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.anatideo.challenge.teads.R
+import com.anatideo.challenge.teads.presentation.startauction.StartAuctionFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
