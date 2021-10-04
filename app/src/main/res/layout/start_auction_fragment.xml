@@ -94,7 +94,7 @@
         android:layout_marginTop="@dimen/regular_margin_value"
         android:fontFamily="@font/advancedpixel7"
         android:text="@string/start_auction"
-        android:textSize="32sp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

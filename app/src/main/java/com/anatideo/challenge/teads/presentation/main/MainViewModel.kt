@@ -82,6 +82,14 @@ class MainViewModel @ViewModelInject constructor(
         }
     }
 
+    fun onAddNewBid() {
+        _viewState.value = AuctionViewState.AddNewBid
+    }
+
+    fun onTerminate() {
+
+    }
+
     @VisibleForTesting
     fun Triple<String, String, String>.toBid(): Bid {
         return Bid(

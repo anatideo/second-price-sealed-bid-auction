@@ -13,6 +13,7 @@ import com.anatideo.challenge.teads.presentation.extensions.observeOn
 import com.anatideo.challenge.teads.presentation.extensions.shake
 import com.anatideo.challenge.teads.presentation.main.MainViewModel
 import com.anatideo.challenge.teads.presentation.model.AuctionViewState
+import com.anatideo.challenge.teads.presentation.ongoingauction.OngoingAuctionFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,7 +39,7 @@ class CollectBidsFragment : Fragment() {
 
     private fun setViews() {
         with(binding) {
-            image.setBackgroundResource(bidderImages.random())
+            setBidderImage()
 
             idInsert.doAfterTextChanged {
                 id.text = it
@@ -64,7 +65,16 @@ class CollectBidsFragment : Fragment() {
                     valueInsert.text.toString()
                 )
             }
+
+            imageContainer.setOnClickListener {
+                listOf(it, image).forEach { it.shake() }
+                setBidderImage()
+            }
         }
+    }
+
+    private fun setBidderImage() {
+        binding.image.setBackgroundResource(bidderImages.random())
     }
 
     private fun setObservers() {
@@ -72,7 +82,12 @@ class CollectBidsFragment : Fragment() {
             when (it) {
                 AuctionViewState.MissingId -> binding.idInsert.shake()
                 AuctionViewState.MissingBidValue -> binding.valueInsert.shake()
-                AuctionViewState.BidAdded -> println("ready to next step")
+                AuctionViewState.BidAdded -> {
+                    parentFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, OngoingAuctionFragment.newInstance())
+                        .commitNow()
+                }
             }
         }
     }

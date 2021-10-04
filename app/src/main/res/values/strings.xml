@@ -2,6 +2,7 @@
     <string name="app_name">TEADS</string>
     <string name="auction_type">Second-price\nSealed-bid Auction</string>
     <string name="start_auction">Start Auction</string>
+    <string name="ongoing_auction">Auction in progress</string>
     <string name="reserve_price">Reserve Price</string>
     <string name="insert_your_bid">Insert your bid</string>
     <string name="bidder_id">Id</string>
@@ -11,6 +12,8 @@
     <string name="monetary_symbol">$</string>
     <string name="no_name">Anonymous</string>
     <string name="insert">Insert</string>
+    <string name="add_new_bid">Add new bid</string>
+    <string name="terminate">Terminate</string>
 
     <string name="product_1">Valuable no teeth smile</string>
     <string name="product_2">Short-armed friend</string>
