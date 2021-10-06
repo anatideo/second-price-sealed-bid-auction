@@ -12,7 +12,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import java.math.BigDecimal
 
-class WinnerBidderUseCaseTest {
+class GetAuctionResultUseCaseTest {
 
     private val auctionRepository = mockk<AuctionRepository>()
     private val getAuctionResultUseCase = GetAuctionResultUseCase(auctionRepository)
