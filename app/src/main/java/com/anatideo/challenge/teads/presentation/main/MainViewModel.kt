@@ -13,10 +13,13 @@ import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.Bid
 import com.anatideo.challenge.teads.presentation.base.extensions.isNumeric
 import com.anatideo.challenge.teads.presentation.model.AuctionViewState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val getAuctionResultUseCase: GetAuctionResultUseCase,
     private val addReservePriceUseCase: AddReservePriceUseCase,
     private val addBidUseCase: AddBidUseCase
