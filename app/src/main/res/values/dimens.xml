@@ -8,4 +8,7 @@
     <dimen name="title_text_size">48sp</dimen>
     <dimen name="regular_text_size">32sp</dimen>
     <dimen name="small_text_size">20sp</dimen>
+
+    <dimen name="image_container_width">190dp</dimen>
+    <dimen name="image_size">150dp</dimen>
 </resources>
