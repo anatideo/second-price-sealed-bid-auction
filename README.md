@@ -1,5 +1,5 @@
 <h2> Hello, Teads!</h2>
-<img align='right' src="https://media.giphy.com/media/AOXNxxIJuBQdNTBblp/giphy.gif" width="230">
+<img align='right' src="https://media.giphy.com/media/AOXNxxIJuBQdNTBblp/giphy.gif" width="180">
 <p>Here to tell you about how I solved the second-price, sealed-bid auction problem.</p>
 
 ### Chosen technology  
