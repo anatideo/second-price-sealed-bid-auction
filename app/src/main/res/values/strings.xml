@@ -16,7 +16,7 @@
     <string name="add_new_bid">Add new bid</string>
     <string name="terminate">Terminate</string>
 
-    <string name="sold">Sold to %1$s!!\nBy the price of \$%2$s.</string>
+    <string name="sold">Sold to %1$s!!\nBy the price of \$%2$s</string>
     <string name="insufficient_bid_values">Not sold!!\nBids did not reach reserve price</string>
     <string name="unknown_error">Sorry!!\nAn error has occurred</string>
 

@@ -46,7 +46,7 @@ class AuctionResultFragmentTest {
             reservePrice = BigDecimal.valueOf(1000.0)
             bidders = listOf(Bidder(1L, "Lou", listOf(BigDecimal.valueOf(2000.0))))
         }
-        val expectedResultText = "Sold to Lou!!\nBy the price of $1000.0."
+        val expectedResultText = "Sold to Lou!!\nBy the price of $1000.0"
 
         launchFragmentInHiltContainer<AuctionResultFragment> {}
 
