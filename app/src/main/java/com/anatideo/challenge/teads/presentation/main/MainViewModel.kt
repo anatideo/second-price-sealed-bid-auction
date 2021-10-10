@@ -1,7 +1,6 @@
 package com.anatideo.challenge.teads.presentation.main
 
 import androidx.annotation.VisibleForTesting
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.anatideo.challenge.teads.domain.AddBidUseCase
 import com.anatideo.challenge.teads.domain.AddReservePriceUseCase
 import com.anatideo.challenge.teads.domain.GetAuctionResultUseCase
+import com.anatideo.challenge.teads.domain.errors.DuplicatedHighestBidError
 import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.Bid
 import com.anatideo.challenge.teads.presentation.base.extensions.isNumeric
@@ -85,6 +85,7 @@ class MainViewModel @Inject constructor(
             }.onFailure {
                 val state = when (it) {
                     is InsufficientHighestBidError -> AuctionViewState.ShowInsufficientHighestBid
+                    is DuplicatedHighestBidError -> AuctionViewState.ShowNoSingularWinner
                     else -> AuctionViewState.ShowUnknownError
                 }
 

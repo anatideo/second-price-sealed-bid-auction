@@ -54,6 +54,10 @@ class AuctionResultFragment : Fragment() {
                     binding.image.setImageResource(product.first)
                     binding.result.text = getString(R.string.insufficient_bid_values)
                 }
+                AuctionViewState.ShowNoSingularWinner -> {
+                    binding.image.setImageResource(R.drawable.warning)
+                    binding.result.text = getString(R.string.no_singular_winner)
+                }
                 AuctionViewState.ShowUnknownError -> {
                     binding.image.setImageResource(R.drawable.warning)
                     binding.result.text = getString(R.string.unknown_error)

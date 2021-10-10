@@ -1,5 +1,6 @@
 package com.anatideo.challenge.teads.domain
 
+import com.anatideo.challenge.teads.domain.errors.DuplicatedHighestBidError
 import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
 import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.AuctionResult
@@ -31,7 +32,11 @@ class GetAuctionResultUseCase @Inject constructor(
                 ?: reservePrice
 
             return if (winnerHighestBid >= reservePrice) {
-                AuctionResult(bidder = winner, winningPrice = winningPrice)
+                if (sortedList.isDuplicatedHighestBid()) {
+                    throw DuplicatedHighestBidError()
+                } else {
+                    AuctionResult(bidder = winner, winningPrice = winningPrice)
+                }
             } else {
                 throw InsufficientHighestBidError()
             }
@@ -40,12 +45,20 @@ class GetAuctionResultUseCase @Inject constructor(
 
     private fun List<BigDecimal>.maxOrZero(): BigDecimal = maxOrNull() ?: BigDecimal.ZERO
 
-    private fun List<Pair<Bidder, BigDecimal>>.getWinner(): Bidder = this.last().first
+    private fun List<Pair<Bidder, BigDecimal>>.getWinner(): Bidder = last().first
 
-    private fun List<Pair<Bidder, BigDecimal>>.getWinnerHighestBid(): BigDecimal = this.last().second
+    private fun List<Pair<Bidder, BigDecimal>>.getWinnerHighestBid(): BigDecimal = last().second
 
     private fun List<Pair<Bidder, BigDecimal>>.getWinningPrice(): BigDecimal? {
         val indexOfNonWinnerHighestBid = this.indexOf(this.last()).dec()
-        return this.getOrNull(indexOfNonWinnerHighestBid)?.second
+        return getOrNull(indexOfNonWinnerHighestBid)?.second
+    }
+
+    private fun List<Pair<Bidder, BigDecimal>>.isDuplicatedHighestBid(): Boolean {
+        val highestBid = last().second
+        val indexOfSecondHighestBid = this.indexOf(this.last()).dec()
+        val secondHighestBid = getOrNull(indexOfSecondHighestBid)?.second
+
+        return highestBid == secondHighestBid
     }
 }
