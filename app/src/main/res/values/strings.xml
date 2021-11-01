@@ -18,6 +18,7 @@
 
     <string name="sold">Sold to %1$s!!\nBy the price of \$%2$s</string>
     <string name="insufficient_bid_values">Not sold!!\nBids did not reach reserve price</string>
+    <string name="no_singular_winner">Not sold!!\nTwo or more potentially winners</string>
     <string name="unknown_error">Sorry!!\nAn error has occurred</string>
 
     <string name="product_1">Valuable no teeth smile</string>

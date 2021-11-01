@@ -11,7 +11,7 @@ sealed class AuctionViewState {
     object MissingId : AuctionViewState()
     object MissingBidValue : AuctionViewState()
     object AuctionStarted : AuctionViewState()
-    object ShowThereIsNoWinner : AuctionViewState()
     object ShowInsufficientHighestBid : AuctionViewState()
     object ShowUnknownError : AuctionViewState()
+    object ShowNoSingularWinner : AuctionViewState()
 }

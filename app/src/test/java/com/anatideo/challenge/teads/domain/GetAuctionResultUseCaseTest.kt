@@ -1,5 +1,6 @@
 package com.anatideo.challenge.teads.domain
 
+import com.anatideo.challenge.teads.domain.errors.DuplicatedHighestBidError
 import com.anatideo.challenge.teads.domain.errors.EmptyBidderListError
 import com.anatideo.challenge.teads.domain.errors.InsufficientHighestBidError
 import com.anatideo.challenge.teads.domain.model.Bidder
@@ -152,6 +153,37 @@ class GetAuctionResultUseCaseTest {
             }.onFailure {
                 // Then
                 assertTrue(it is EmptyBidderListError)
+            }
+        }
+
+        coVerify {
+            auctionRepository.getReservePrice()
+            auctionRepository.getBidders()
+        }
+    }
+
+    @Test
+    fun `when getting auction result there is no winner because there are more than one highest bid`() {
+        // Given
+        val reservePrice = BigDecimal.valueOf(100.0)
+        val highestBid = 110.0
+
+        val bidders = listOf(
+            Bidder(id = 1L, name = "z", bids = listOf(BigDecimal.valueOf(10.0), BigDecimal.valueOf(highestBid))),
+            Bidder(id = 2L, name = "y", bids = listOf(BigDecimal.valueOf(77.0), BigDecimal.valueOf(highestBid))),
+            Bidder(id = 3L, name = "x", bids = listOf(BigDecimal.valueOf(27.0), BigDecimal.valueOf(27.0)))
+        )
+
+        coEvery { auctionRepository.getReservePrice() } returns reservePrice
+        coEvery { auctionRepository.getBidders() } returns bidders
+
+        // When
+        runBlocking {
+            runCatching {
+                getAuctionResultUseCase()
+            }.onFailure {
+                // Then
+                assertTrue(it is DuplicatedHighestBidError)
             }
         }
 

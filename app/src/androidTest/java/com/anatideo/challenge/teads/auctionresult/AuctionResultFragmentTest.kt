@@ -51,7 +51,7 @@ class AuctionResultFragmentTest {
         launchFragmentInHiltContainer<AuctionResultFragment> {}
 
         auctionResult {
-            matchText(expectedResultText)
+            matchResultText(expectedResultText)
         }
     }
 
@@ -66,7 +66,25 @@ class AuctionResultFragmentTest {
         launchFragmentInHiltContainer<AuctionResultFragment> {}
 
         auctionResult {
-            matchText(expectedResultText)
+            matchResultText(expectedResultText)
+        }
+    }
+
+    @Test
+    fun whenDisplayed_thereAreMoreThanOneWinner() {
+        fakeAuctionResultData.apply {
+            reservePrice = BigDecimal.valueOf(1000.0)
+            bidders = listOf(
+                Bidder(1L, "Lou", listOf(BigDecimal.valueOf(2000.0))),
+                Bidder(2L, "Billy", listOf(BigDecimal.valueOf(2000.0)))
+            )
+        }
+        val expectedResultText = "Not sold!!\nTwo or more potentially winners"
+
+        launchFragmentInHiltContainer<AuctionResultFragment> {}
+
+        auctionResult {
+            matchResultText(expectedResultText)
         }
     }
 
