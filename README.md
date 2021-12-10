@@ -1,6 +1,6 @@
-<h2> Hello, Teads!</h2>
+<h2> Hello!</h2>
 <img align='right' src="https://media.giphy.com/media/AOXNxxIJuBQdNTBblp/giphy.gif" width="180">
-<p>Here to tell you about how I solved the second-price, sealed-bid auction problem.</p>
+<p>Here to tell you about how I solved a second-price, sealed-bid auction problem.</p>
 
 ### Chosen technology  
 
@@ -26,10 +26,7 @@ const auctionApp = {
 
 ---
 
-<p>Feel free to clone the project and run it locally.</p>
-<p>If you want to see the algorithm and its tests already, you can get it <a href="https://github.com/anatideo/second-price-sealed-bid-auction/blob/master/app/src/main/java/com/anatideo/challenge/teads/domain/GetAuctionResultUseCase.kt">here</a> and <a href="https://github.com/anatideo/second-price-sealed-bid-auction/blob/master/app/src/test/java/com/anatideo/challenge/teads/domain/GetAuctionResultUseCaseTest.kt">here</a>.</p>
-<p>By the way, I created <a href="https://github.com/anatideo/second-price-sealed-bid-auction/issues">a list of issues<a/> to give you perspective about stuff which could be made in the project, but weren't because a matter of time. If you wish to see something in the project which was not made, please, let me know and I'll send an update.</p>
-<br/>
+<p>If you want to see the algorithm and its tests already which contains the core logic, you can get it <a href="https://github.com/anatideo/second-price-sealed-bid-auction/blob/master/app/src/main/java/com/anatideo/challenge/teads/domain/GetAuctionResultUseCase.kt">here</a> and <a href="https://github.com/anatideo/second-price-sealed-bid-auction/blob/master/app/src/test/java/com/anatideo/challenge/teads/domain/GetAuctionResultUseCaseTest.kt">here</a>.</p>
+<p>I created <a href="https://github.com/anatideo/second-price-sealed-bid-auction/issues">a list of issues<a/>, which means that anyone is able to contribute to this project in order to having it as your portfolio as well.</p>
 
-<p>Best Regards</p>
 <p>Lucas Bonafé</p>
